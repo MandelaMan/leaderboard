@@ -394,7 +394,7 @@ export class Dashboard extends Component {
       <>
         <div className="row">
           <div className="col-12">
-            <div className="card" style={{ height: "90vh" }}>
+            <div className="card" style={{ height: "100vh" }}>
               <div className="row card-body">
                 <div className="col-md-4">
                   <div className="row">
@@ -455,7 +455,9 @@ export class Dashboard extends Component {
                     <div className="col-xl-12 col-lg-12 col-md-12">
                       <div>
                         <h6>Broker/Direct Overall Set Target for June 2021</h6>
-                        <h1>$&nbsp;{separator(this.results.target)}</h1>
+                        <h1 style={{ fontSize: "1rem" }}>
+                          $&nbsp;{separator(this.results.target)}
+                        </h1>
                       </div>
                     </div>
                   </div>
@@ -465,7 +467,10 @@ export class Dashboard extends Component {
                       <h6>
                         <u>Achieved so far</u>
                       </h6>
-                      <h1 className="text-success ml-2 mb-0 font-weight-medium">
+                      <h1
+                        style={{ fontSize: "1rem" }}
+                        className="text-success ml-2 mb-0"
+                      >
                         $&nbsp;
                         {separator(Math.round(this.results.achieved))}
                       </h1>
@@ -474,7 +479,10 @@ export class Dashboard extends Component {
                       <h6>
                         <u>Pending</u>
                       </h6>
-                      <h1 className="text-danger ml-2 mb-0 font-weight-medium">
+                      <h1
+                        style={{ fontSize: "1rem" }}
+                        className="text-danger ml-2 mb-0 font-weight-medium"
+                      >
                         $&nbsp;
                         {separator(
                           Math.round(
@@ -490,7 +498,10 @@ export class Dashboard extends Component {
                       <h6>
                         <u>Days to target expiry</u>
                       </h6>
-                      <h1 className="text-success ml-2 mb-0 font-weight-medium">
+                      <h1
+                        style={{ fontSize: "1rem" }}
+                        className="text-success ml-2 mb-0 font-weight-medium"
+                      >
                         {remainingDays()} Day{remainingDays() > 1 && "s"}
                       </h1>
                     </div>
