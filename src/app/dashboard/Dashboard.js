@@ -394,7 +394,7 @@ export class Dashboard extends Component {
       <>
         <div className="row">
           <div className="col-12">
-            <div className="card" style={{ height: "80vh" }}>
+            <div className="card" style={{ height: "90vh" }}>
               <div className="row card-body">
                 <div className="col-md-4">
                   <div className="row">
