@@ -33,7 +33,6 @@ class App extends Component {
   }
 
   onRouteChanged() {
-    console.log("ROUTE CHANGED");
     const { i18n } = this.props;
     const body = document.querySelector("body");
     if (this.props.location.pathname === "/layout/RtlLayout") {
@@ -41,7 +40,7 @@ class App extends Component {
       i18n.changeLanguage("ar");
     } else {
       body.classList.remove("rtl");
-      i18n.changeLanguage("en");
+      // i18n.changeLanguage("en");
     }
     window.scrollTo(0, 0);
     const fullPageLayoutRoutes = [
