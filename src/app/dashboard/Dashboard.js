@@ -47,6 +47,7 @@ export class Dashboard extends Component {
     monthValues: [
       101340, 80655, 136990, 95752, 77009, 77352, 75669, 5495, 0, 0, 0, 0,
     ],
+    salesMemberPictures: [],
   };
 
   data = {
@@ -70,7 +71,7 @@ export class Dashboard extends Component {
         data: this.state.monthValues,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 144, 99, 0.2)",
           "rgba(255, 206, 86, 0.2)",
           "rgba(75, 192, 192, 0.2)",
           "rgba(153, 102, 255, 0.2)",
@@ -83,8 +84,8 @@ export class Dashboard extends Component {
           "rgba(255, 159, 64, 0.2)",
         ],
         borderColor: [
-          "rgba(255,99,132,1)",
-          "rgba(54, 162, 235, 1)",
+          "rgba(255, 99, 132,1)",
+          "rgba(255, 144, 99, 1)",
           "rgba(255, 206, 86, 1)",
           "rgba(75, 192, 192, 1)",
           "rgba(153, 102, 255, 1)",
@@ -156,7 +157,10 @@ export class Dashboard extends Component {
     )
       .then((response) => response.json())
       .then((data) => {
+        const empID = data.map((item) => Math.round(item.empID));
         this.setState({ salesMembers: data });
+
+        this.setState({ salesMemberPictures: empID });
       });
   };
 
@@ -311,7 +315,7 @@ export class Dashboard extends Component {
                       <div className="preview-item border-bottom" key={i}>
                         <div className="preview-thumbnail">
                           <img
-                            src={require("../../assets/images/faces/face28.jpeg")}
+                            src={require(`../../assets/images/faces/${s.empID}.jpg`)}
                             alt="face"
                             className="rounded-circle"
                           />
