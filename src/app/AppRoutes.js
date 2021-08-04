@@ -10,7 +10,12 @@ class AppRoutes extends Component {
     return (
       <Suspense fallback={<Spinner />}>
         <Switch>
-          <Route exact path="/" component={Dashboard} />
+          <Route
+            path="/"
+            exact
+            render={(props) => <Dashboard {...props} test={1} />}
+          />
+          {/* <Route exact path="/" component={Dashboard} /> */}
         </Switch>
       </Suspense>
     );

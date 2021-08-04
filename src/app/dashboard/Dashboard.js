@@ -214,7 +214,9 @@ export class Dashboard extends Component {
                       />
                     </div>
                     <div className="col-xl-12 col-lg-12 col-md-12 mt-3">
-                      <h4>Top business by Client Nationality</h4>
+                      <h4>
+                        Top business by Client Nationality {this.props.test}
+                      </h4>
                       <div className="table-responsive">
                         <table className="table">
                           <tbody>
