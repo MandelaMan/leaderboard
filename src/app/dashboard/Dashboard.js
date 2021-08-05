@@ -255,7 +255,9 @@ export class Dashboard extends Component {
                       <div className="col-xl-12 col-lg-12 col-md-12">
                         <div>
                           <h6>
-                            Broker/Direct Overall Set Target for June 2021
+                            <u>
+                              Broker/Direct Overall Set Target for August 2021
+                            </u>
                           </h6>
                           <h1 className="text-success ml-2 mb-0">
                             $&nbsp;
@@ -297,7 +299,7 @@ export class Dashboard extends Component {
                         </h6>
                         <h1 className="text-success ml-2 mb-0 font-weight-medium">
                           <Counter start={0} end={remainingDays()} delay={10} />
-                          &nbsp;Day{remainingDays() > 1 && "(s)"}
+                          &nbsp;Day{remainingDays() > 1 && "s"}
                         </h1>
                       </div>
                     </div>
