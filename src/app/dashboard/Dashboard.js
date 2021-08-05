@@ -41,6 +41,7 @@ function remainingDays() {
 
 export class Dashboard extends Component {
   state = {
+    loaded: false,
     targetTotal: 0,
     targetAchieved: 0,
     salesMembers: [],
@@ -179,212 +180,197 @@ export class Dashboard extends Component {
     this.fetchAchieved();
     this.fetchTargets();
     this.fetchBarChartData();
-    // .then((data) => this.setState({ data }));
+
+    setTimeout(() => {
+      this.setState({ loaded: true });
+    }, 1000);
   }
 
   render() {
+    setTimeout(() => {}, 500);
     return (
       <>
-        <div className="row">
-          <div className="col-12">
-            <div className="card" style={{ height: "100vh" }}>
-              <div className="row card-body">
-                <div className="col-md-4">
-                  <div className="row">
-                    <div className="col-xl-12 col-lg-12 col-md-12">
-                      <div id="audience-map" className="vector-map"></div>
-                      <VectorMap
-                        map={"world_mill"}
-                        backgroundColor="transparent" //change it to ocean blue: #0077be
-                        panOnDrag={true}
-                        containerClassName="dashboard-vector-map"
-                        focusOn={{
-                          x: 0.5,
-                          y: 0.5,
-                          scale: 1,
-                          animate: true,
-                        }}
-                        series={{
-                          regions: [
-                            {
-                              scale: ["#cc3700", "#ff7d4d"],
-                              normalizeFunction: "polynomial",
-                              values: mapData,
-                            },
-                          ],
-                        }}
-                      />
-                    </div>
-                    <div className="col-xl-12 col-lg-12 col-md-12 mt-3">
-                      <h4>Top business by Client Nationality</h4>
-                      <div className="table-responsive">
-                        <table className="table">
-                          <tbody>
-                            {this.leads_by_country.map((l, i) => (
-                              <tr key={i}>
-                                <td style={{ width: "20px" }}>
-                                  <img
-                                    src={`https://www.countryflags.io/${l.code}/flat/64.png`}
-                                    alt=""
-                                  />
-                                </td>
-                                <td style={{ width: "150px" }}>{l.country}</td>
-                                <td style={{ width: "100px" }}>
-                                  {l.no_of_leads}&nbsp;lives
-                                </td>
-                                <td style={{ width: "100px" }}>
-                                  $&nbsp;{separator(l.premium)}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+        {this.state.loaded ? (
+          <div className="row">
+            <div className="col-12">
+              <div className="card" style={{ height: "100vh" }}>
+                <div className="row card-body">
+                  <div className="col-md-4">
+                    <div className="row">
+                      <div className="col-xl-12 col-lg-12 col-md-12">
+                        <div id="audience-map" className="vector-map"></div>
+                        <VectorMap
+                          map={"world_mill"}
+                          backgroundColor="transparent" //change it to ocean blue: #0077be
+                          panOnDrag={true}
+                          containerClassName="dashboard-vector-map"
+                          focusOn={{
+                            x: 0.5,
+                            y: 0.5,
+                            scale: 1,
+                            animate: true,
+                          }}
+                          series={{
+                            regions: [
+                              {
+                                scale: ["#cc3700", "#ff7d4d"],
+                                normalizeFunction: "polynomial",
+                                values: mapData,
+                              },
+                            ],
+                          }}
+                        />
+                      </div>
+                      <div className="col-xl-12 col-lg-12 col-md-12 mt-3">
+                        <h4>Top business by Client Nationality</h4>
+                        <div className="table-responsive">
+                          <table className="table">
+                            <tbody>
+                              {this.leads_by_country.map((l, i) => (
+                                <tr key={i}>
+                                  <td style={{ width: "20px" }}>
+                                    <img
+                                      src={`https://www.countryflags.io/${l.code}/flat/64.png`}
+                                      alt=""
+                                    />
+                                  </td>
+                                  <td style={{ width: "150px" }}>
+                                    {l.country}
+                                  </td>
+                                  <td style={{ width: "100px" }}>
+                                    {l.no_of_leads}&nbsp;lives
+                                  </td>
+                                  <td style={{ width: "100px" }}>
+                                    $&nbsp;{separator(l.premium)}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="row">
-                    <div className="col-xl-12 col-lg-12 col-md-12">
-                      <div>
-                        <h6>Broker/Direct Overall Set Target for June 2021</h6>
+                  <div className="col-md-4">
+                    <div className="row">
+                      <div className="col-xl-12 col-lg-12 col-md-12">
+                        <div>
+                          <h6>
+                            Broker/Direct Overall Set Target for June 2021
+                          </h6>
+                          <h1 className="text-success ml-2 mb-0">
+                            $&nbsp;
+                            {separator(Math.round(this.state.targetTotal))}
+                          </h1>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div className="row">
+                      <div className="col-xl-6 col-lg-6 col-md-6">
+                        <h6>
+                          <u>Achieved so far</u>
+                        </h6>
                         <h1 className="text-success ml-2 mb-0">
                           $&nbsp;
-                          {separator(Math.round(this.state.targetTotal))}
+                          {separator(Math.round(this.state.targetAchieved))}
+                        </h1>
+                      </div>
+                      <div className="col-xl-6 col-lg-6 col-md-6">
+                        <h6>
+                          <u>Pending</u>
+                        </h6>
+                        <h1 className="text-danger ml-2 mb-0 font-weight-medium">
+                          $&nbsp;
+                          {separator(
+                            Math.round(
+                              this.state.targetTotal - this.state.targetAchieved
+                            )
+                          )}
                         </h1>
                       </div>
                     </div>
-                  </div>
-                  <br />
-                  <div className="row">
-                    <div className="col-xl-6 col-lg-6 col-md-6">
-                      <h6>
-                        <u>Achieved so far</u>
-                      </h6>
-                      <h1 className="text-success ml-2 mb-0">
-                        $&nbsp;
-                        {separator(Math.round(this.state.targetAchieved))}
-                      </h1>
+                    <br />
+                    <div className="row">
+                      <div className="col-xl-6 col-lg-6 col-md-6">
+                        <h6>
+                          <u>Days to target expiry</u>
+                        </h6>
+                        <h1 className="text-success ml-2 mb-0 font-weight-medium">
+                          <Counter start={0} end={remainingDays()} delay={10} />
+                          &nbsp;Day{remainingDays() > 1 && "(s)"}
+                        </h1>
+                      </div>
                     </div>
-                    <div className="col-xl-6 col-lg-6 col-md-6">
-                      <h6>
-                        <u>Pending</u>
-                      </h6>
-                      <h1 className="text-danger ml-2 mb-0 font-weight-medium">
-                        $&nbsp;
-                        {separator(
-                          Math.round(
-                            this.state.targetTotal - this.state.targetAchieved
-                          )
-                        )}
-                      </h1>
+                    <div className="row mt-5">
+                      <div className="col-xl-6 col-lg-6 col-md-6">
+                        <h6>Closed business</h6>
+                      </div>
                     </div>
-                  </div>
-                  <br />
-                  <div className="row">
-                    <div className="col-xl-6 col-lg-6 col-md-6">
-                      <h6>
-                        <u>Days to target expiry</u>
-                      </h6>
-                      <h1 className="text-success ml-2 mb-0 font-weight-medium">
-                        <Counter start={0} end={remainingDays()} delay={10} />
-                        &nbsp;Day{remainingDays() > 1 && "(s)"}
-                      </h1>
+                    <div className="row">
+                      <div className="col-xl-12 col-lg-12 col-md-12">
+                        <Bar
+                          height={220}
+                          data={this.data}
+                          options={this.options}
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className="row mt-5">
-                    <div className="col-xl-6 col-lg-6 col-md-6">
-                      <h6>Closed business</h6>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-xl-12 col-lg-12 col-md-12">
-                      <Bar
-                        height={220}
-                        data={this.data}
-                        options={this.options}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <h5>
-                    <u>Business Development Individual Targets</u>
-                  </h5>
-                  <br />
-                  <div className="preview-list">
-                    {this.state.salesMembers.map((s, i) => (
-                      <div className="preview-item border-bottom" key={i}>
-                        <div className="preview-thumbnail">
-                          <img
-                            src={require(`../../assets/images/faces/${s.empID}.jpg`)}
-                            alt="face"
-                            className="rounded-circle"
-                          />
-                        </div>
-                        <div className="preview-item-content d-flex flex-grow">
-                          <div className="flex-grow">
-                            <div className="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 className="preview-subject">{s.name}</h6>
-                              <p className="text-success ml-2 mb-0 font-weight-medium">
-                                +$&nbsp;
-                                {separator(
-                                  // Math.round(percentage(s.target, p.achieved))
-                                  Math.round(s.amount)
+                  <div className="col-md-4">
+                    <h5>
+                      <u>Business Development Individual Targets</u>
+                    </h5>
+                    <br />
+                    <div className="preview-list">
+                      {this.state.salesMembers.map((s, i) => (
+                        <div className="preview-item border-bottom" key={i}>
+                          <div className="preview-thumbnail">
+                            <img
+                              src={require(`../../assets/images/faces/${s.empID}.jpg`)}
+                              alt="face"
+                              className="rounded-circle"
+                            />
+                          </div>
+                          <div className="preview-item-content d-flex flex-grow">
+                            <div className="flex-grow">
+                              <div className="d-flex d-md-block d-xl-flex justify-content-between">
+                                <h6 className="preview-subject">{s.name}</h6>
+                                <p className="text-success ml-2 mb-0 font-weight-medium">
+                                  +$&nbsp;
+                                  {separator(
+                                    // Math.round(percentage(s.target, p.achieved))
+                                    Math.round(s.amount)
+                                  )}
+                                </p>
+                                {s.amount > s.target ? (
+                                  <p className="text-success ml-2 mb-0 font-weight-medium">
+                                    +$&nbsp;
+                                    {separator(Math.round(s.amount) - s.target)}
+                                  </p>
+                                ) : (
+                                  <p className="text-danger ml-2 mb-0 font-weight-medium">
+                                    -$&nbsp;
+                                    {separator(s.target - Math.round(s.amount))}
+                                  </p>
                                 )}
-                              </p>
-                              <p className="text-danger ml-2 mb-0 font-weight-medium">
-                                -$&nbsp;
-                                {separator(s.target - Math.round(s.amount))}
+                              </div>
+                              <p className="text-muted">
+                                $&nbsp;{separator(s.target)}
                               </p>
                             </div>
-                            <p className="text-muted">
-                              $&nbsp;{separator(s.target)}
-                            </p>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                    {/* {this.people.map((p, i) => (
-                      <div className="preview-item border-bottom" key={i}>
-                        <div className="preview-thumbnail">
-                          <img
-                            src={require("../../assets/images/faces/face28.jpeg")}
-                            alt="face"
-                            className="rounded-circle"
-                          />
-                        </div>
-                        <div className="preview-item-content d-flex flex-grow">
-                          <div className="flex-grow">
-                            <div className="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 className="preview-subject">{p.name}</h6>
-                              <p className="text-success ml-2 mb-0 font-weight-medium">
-                                +$&nbsp;
-                                {separator(
-                                  Math.round(percentage(p.target, p.achieved))
-                                )}
-                              </p>
-                              <p className="text-danger ml-2 mb-0 font-weight-medium">
-                                -$&nbsp;
-                                {separator(
-                                  p.target -
-                                    Math.round(percentage(p.target, p.achieved))
-                                )}
-                              </p>
-                            </div>
-                            <p className="text-muted">
-                              $&nbsp;{separator(p.target)}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))} */}
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <>Loading</>
+        )}
       </>
     );
   }
