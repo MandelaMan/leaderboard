@@ -6,7 +6,7 @@ import Counter from "react-number-counter";
 const mapData = {
   GB: 35.0,
   KE: 100.0,
-  RW: 35.89,
+  ZM: 35.89,
   UG: 15.78,
   TZ: 65.56,
   US: 89.25,
@@ -134,7 +134,7 @@ export class Dashboard extends Component {
   leads_by_country = [
     { country: "United Kingdom", no_of_leads: 6, code: "GB", premium: 56700 },
     { country: "Kenya", no_of_leads: 120, code: "KE", premium: 700000 },
-    { country: "Rwanda", no_of_leads: 45, code: "RW", premium: 150000 },
+    { country: "Zambia", no_of_leads: 45, code: "ZM", premium: 150000 },
     { country: "Uganda", no_of_leads: 7, code: "UG", premium: 16000 },
     { country: "Tanzania", no_of_leads: 3, code: "TZ", premium: 2000 },
   ];
