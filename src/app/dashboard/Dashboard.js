@@ -146,7 +146,7 @@ export class Dashboard extends Component {
       .then((response) => response.json())
       .then((data) => {
         const amounts = data.map((item) => Math.round(item.amount));
-        console.log(amounts);
+
         this.setState({ monthValues: amounts });
       });
   };
@@ -158,6 +158,7 @@ export class Dashboard extends Component {
       .then((response) => response.json())
       .then((data) => {
         const empID = data.map((item) => Math.round(item.empID));
+
         this.setState({ salesMembers: data });
 
         this.setState({ salesMemberPictures: empID });
@@ -169,6 +170,7 @@ export class Dashboard extends Component {
       .then((response) => response.json())
       .then((data) => {
         this.setState({ targetTotal: data.targetAmount });
+
         this.setState({ targetAchieved: data.amountAchied });
       });
   };
@@ -214,9 +216,7 @@ export class Dashboard extends Component {
                       />
                     </div>
                     <div className="col-xl-12 col-lg-12 col-md-12 mt-3">
-                      <h4>
-                        Top business by Client Nationality {this.props.test}
-                      </h4>
+                      <h4>Top business by Client Nationality</h4>
                       <div className="table-responsive">
                         <table className="table">
                           <tbody>
