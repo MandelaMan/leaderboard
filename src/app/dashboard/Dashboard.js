@@ -187,7 +187,6 @@ export class Dashboard extends Component {
   }
 
   render() {
-    setTimeout(() => {}, 500);
     return (
       <>
         {this.state.loaded ? (
@@ -369,7 +368,7 @@ export class Dashboard extends Component {
             </div>
           </div>
         ) : (
-          <>Loading</>
+          <>Loading please wait</>
         )}
       </>
     );
