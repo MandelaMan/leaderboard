@@ -177,13 +177,15 @@ export class Dashboard extends Component {
   };
 
   componentDidMount() {
+    this.setState({ loaded: true });
+
     this.fetchAchieved();
     this.fetchTargets();
     this.fetchBarChartData();
 
     setTimeout(() => {
       this.setState({ loaded: true });
-    }, 1000);
+    }, 3000);
   }
 
   render() {
@@ -324,45 +326,51 @@ export class Dashboard extends Component {
                     </h5>
                     <br />
                     <div className="preview-list">
-                      {this.state.salesMembers.map((s, i) => (
-                        <div className="preview-item border-bottom" key={i}>
-                          <div className="preview-thumbnail">
-                            <img
-                              src={require(`../../assets/images/faces/${s.empID}.jpg`)}
-                              alt="face"
-                              className="rounded-circle"
-                            />
-                          </div>
-                          <div className="preview-item-content d-flex flex-grow">
-                            <div className="flex-grow">
-                              <div className="d-flex d-md-block d-xl-flex justify-content-between">
-                                <h6 className="preview-subject">{s.name}</h6>
-                                <p className="text-success ml-2 mb-0 font-weight-medium">
-                                  +$&nbsp;
-                                  {separator(
-                                    // Math.round(percentage(s.target, p.achieved))
-                                    Math.round(s.amount)
-                                  )}
-                                </p>
-                                {s.amount > s.target ? (
-                                  <p className="text-success ml-2 mb-0 font-weight-medium">
+                      {this.state.salesMembers
+                        .sort((a, b) => b.amount - a.amount)
+                        .map((s, i) => (
+                          <div className="preview-item border-bottom" key={i}>
+                            <div className="preview-thumbnail">
+                              <img
+                                src={require(`../../assets/images/faces/${s.empID}.jpg`)}
+                                alt="face"
+                                className="rounded-circle"
+                              />
+                            </div>
+                            <div className="preview-item-content d-flex flex-grow">
+                              <div className="flex-grow">
+                                <div className="d-flex d-md-block d-xl-flex justify-content-between">
+                                  <h6 className="preview-subject">{s.name}</h6>
+                                  <p className="text-success text-end font-weight-medium">
                                     +$&nbsp;
-                                    {separator(Math.round(s.amount) - s.target)}
+                                    {separator(
+                                      // Math.round(percentage(s.target, p.achieved))
+                                      Math.round(s.amount)
+                                    )}
                                   </p>
-                                ) : (
-                                  <p className="text-danger ml-2 mb-0 font-weight-medium">
-                                    -$&nbsp;
-                                    {separator(s.target - Math.round(s.amount))}
-                                  </p>
-                                )}
+                                  {s.amount > s.target ? (
+                                    <p className="text-success text-end  font-weight-medium">
+                                      +$&nbsp;
+                                      {separator(
+                                        Math.round(s.amount) - s.target
+                                      )}
+                                    </p>
+                                  ) : (
+                                    <p className="text-danger text-end  font-weight-medium">
+                                      -$&nbsp;
+                                      {separator(
+                                        s.target - Math.round(s.amount)
+                                      )}
+                                    </p>
+                                  )}
+                                </div>
+                                <p className="text-muted">
+                                  $&nbsp;{separator(s.target)}
+                                </p>
                               </div>
-                              <p className="text-muted">
-                                $&nbsp;{separator(s.target)}
-                              </p>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
                     </div>
                   </div>
                 </div>
