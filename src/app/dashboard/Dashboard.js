@@ -194,7 +194,7 @@ export class Dashboard extends Component {
         {this.state.loaded ? (
           <div className="row">
             <div className="col-12">
-              <div className="card" style={{ height: "100vh" }}>
+              <div className="card">
                 <div className="row card-body">
                   <div className="col-md-4">
                     <div className="row">
@@ -341,7 +341,7 @@ export class Dashboard extends Component {
                               <div className="flex-grow">
                                 <div className="d-flex d-md-block d-xl-flex justify-content-between">
                                   <h6 className="preview-subject">{s.name}</h6>
-                                  <p className="text-success text-end font-weight-medium">
+                                  <p className="text-success text-start font-weight-medium">
                                     +$&nbsp;
                                     {separator(
                                       // Math.round(percentage(s.target, p.achieved))
@@ -349,14 +349,14 @@ export class Dashboard extends Component {
                                     )}
                                   </p>
                                   {s.amount > s.target ? (
-                                    <p className="text-success text-end  font-weight-medium">
+                                    <p className="text-success text-start font-weight-medium">
                                       +$&nbsp;
                                       {separator(
                                         Math.round(s.amount) - s.target
                                       )}
                                     </p>
                                   ) : (
-                                    <p className="text-danger text-end  font-weight-medium">
+                                    <p className="text-danger text-start font-weight-medium">
                                       -$&nbsp;
                                       {separator(
                                         s.target - Math.round(s.amount)
