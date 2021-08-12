@@ -133,10 +133,10 @@ export class Dashboard extends Component {
   };
 
   leads_by_country = [
-    { country: "United Kingdom", no_of_leads: 6, code: "GB", premium: 56700 },
-    { country: "Kenya", no_of_leads: 120, code: "KE", premium: 700000 },
-    { country: "Zambia", no_of_leads: 45, code: "ZM", premium: 150000 },
-    { country: "Uganda", no_of_leads: 7, code: "UG", premium: 16000 },
+    { country: "United Kingdom", no_of_leads: 6, code: "GB", premium: 3000 },
+    { country: "Kenya", no_of_leads: 120, code: "KE", premium: 10000 },
+    { country: "Zambia", no_of_leads: 45, code: "ZM", premium: 5670 },
+    { country: "Uganda", no_of_leads: 7, code: "UG", premium: 1200 },
     { country: "Tanzania", no_of_leads: 3, code: "TZ", premium: 2000 },
   ];
 
