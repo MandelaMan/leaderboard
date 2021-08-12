@@ -4,18 +4,11 @@ import { VectorMap } from "react-jvectormap";
 import Counter from "react-number-counter";
 
 const mapData = {
-  GB: 35.0,
+  GB: 100.0,
   KE: 100.0,
   ZM: 35.89,
   UG: 15.78,
   TZ: 65.56,
-  US: 89.25,
-  AR: 30.78,
-  BH: 45.9,
-  GE: 33.25,
-  BW: 35.89,
-  JP: 35.89,
-  CF: 35.89,
 };
 
 // function percentage(percent, total) {
@@ -133,9 +126,9 @@ export class Dashboard extends Component {
   };
 
   leads_by_country = [
-    { country: "United Kingdom", no_of_leads: 6, code: "GB", premium: 3000 },
-    { country: "Kenya", no_of_leads: 120, code: "KE", premium: 10000 },
-    { country: "Zambia", no_of_leads: 45, code: "ZM", premium: 5670 },
+    { country: "United Kingdom", no_of_leads: 1, code: "GB", premium: 3000 },
+    { country: "Kenya", no_of_leads: 3, code: "KE", premium: 2000 },
+    { country: "Zambia", no_of_leads: 6, code: "ZM", premium: 1300 },
     { country: "Uganda", no_of_leads: 7, code: "UG", premium: 1200 },
     { country: "Tanzania", no_of_leads: 3, code: "TZ", premium: 2000 },
   ];
@@ -361,8 +354,9 @@ export class Dashboard extends Component {
                                   <p className="text-success text-start font-weight-medium">
                                     +$&nbsp;
                                     {separator(
-                                      // Math.round(percentage(s.target, p.achieved))
-                                      Math.round(s.amount)
+                                      Math.round(s.amount) > s.target
+                                        ? s.target
+                                        : Math.round(s.amount)
                                     )}
                                   </p>
                                   {s.amount > s.target ? (
