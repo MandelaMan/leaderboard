@@ -176,16 +176,33 @@ export class Dashboard extends Component {
       });
   };
 
-  componentDidMount() {
-    this.setState({ loaded: true });
-
+  getData = () => {
     this.fetchAchieved();
     this.fetchTargets();
     this.fetchBarChartData();
+  };
 
-    setTimeout(() => {
-      this.setState({ loaded: true });
-    }, 3000);
+  componentDidMount() {
+    this.setState({ loaded: true });
+
+    this.getData();
+
+    // // repeat with the interval of 30 minutes
+    setInterval(() => {
+      this.getData();
+    }, 3600000);
+
+    // // after 5 seconds stop
+    // setTimeout(() => {
+    //   clearInterval(timerId);
+    //   alert("stop");
+    // }, 5000);
+
+    // setInterval(() => {}, 1800000);
+
+    // setTimeout(() => {
+    //   this.setState({ loaded: true });
+    // }, 3000);
   }
 
   render() {
@@ -305,7 +322,7 @@ export class Dashboard extends Component {
                         </h1>
                       </div>
                     </div>
-                    <div className="row mt-5">
+                    <div className="row mt-5 mb-7">
                       <div className="col-xl-6 col-lg-6 col-md-6">
                         <h6>Closed business</h6>
                       </div>
