@@ -181,7 +181,6 @@ export class Dashboard extends Component {
 
     this.getData();
 
-    // // repeat with the interval of 30 minutes
     setInterval(() => {
       this.getData();
     }, 3600000);
