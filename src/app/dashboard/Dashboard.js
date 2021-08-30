@@ -39,7 +39,7 @@ export class Dashboard extends Component {
     targetAchieved: 0,
     salesMembers: [],
     monthValues: [
-      101340, 80655, 136990, 95752, 77009, 77352, 75669, 5495, 0, 0, 0, 0,
+      101340, 80655, 136990, 95752, 77009, 77352, 75669, 217971, 0, 0, 0, 0,
     ],
     salesMemberPictures: [],
   };
@@ -134,9 +134,7 @@ export class Dashboard extends Component {
   ];
 
   fetchBarChartData = () => {
-    fetch(
-      "https://portal.micglobalrisks.com:8082/leaderboard/api/ehs-monthly-sales"
-    )
+    fetch("https://portal.micglobalrisks.com:8082/leaderboard/api/sales")
       .then((response) => response.json())
       .then((data) => {
         const amounts = data.map((item) => Math.round(item.amount));
@@ -173,6 +171,13 @@ export class Dashboard extends Component {
     this.fetchAchieved();
     this.fetchTargets();
     this.fetchBarChartData();
+  };
+
+  getMonthName = () => {
+    const date = new Date(); // 2009-11-10
+    const month = date.toLocaleString("default", { month: "long" });
+
+    return month;
   };
 
   componentDidMount() {
@@ -268,7 +273,8 @@ export class Dashboard extends Component {
                         <div>
                           <h6>
                             <u>
-                              Broker/Direct Overall Set Target for August 2021
+                              Broker/Direct Overall Set Target for&nbsp;
+                              {this.getMonthName()}&nbsp;2021
                             </u>
                           </h6>
                           <h1 className="text-success ml-2 mb-0">
@@ -290,17 +296,37 @@ export class Dashboard extends Component {
                         </h1>
                       </div>
                       <div className="col-xl-6 col-lg-6 col-md-6">
-                        <h6>
-                          <u>Pending</u>
-                        </h6>
-                        <h1 className="text-danger ml-2 mb-0 font-weight-medium">
-                          $&nbsp;
-                          {separator(
-                            Math.round(
-                              this.state.targetTotal - this.state.targetAchieved
-                            )
-                          )}
-                        </h1>
+                        {this.state.targetTotal > this.state.targetAchieved ? (
+                          <>
+                            <h6>
+                              <u>Pending</u>
+                            </h6>
+                            <h1 className="text-danger ml-2 mb-0 font-weight-medium">
+                              $&nbsp;
+                              {separator(
+                                Math.round(
+                                  this.state.targetTotal -
+                                    this.state.targetAchieved
+                                )
+                              )}
+                            </h1>
+                          </>
+                        ) : (
+                          <>
+                            <h6>
+                              <u>Exceeded by</u>
+                            </h6>
+                            <h1 className="text-success ml-2 mb-0 font-weight-medium">
+                              $&nbsp;
+                              {separator(
+                                Math.round(
+                                  this.state.targetAchieved -
+                                    this.state.targetTotal
+                                )
+                              )}
+                            </h1>
+                          </>
+                        )}
                       </div>
                     </div>
                     <br />
@@ -332,7 +358,10 @@ export class Dashboard extends Component {
                   </div>
                   <div className="col-md-4">
                     <h5>
-                      <u>Business Development Individual Targets</u>
+                      <u>
+                        Business Development Individual Targets for&nbsp;
+                        {this.getMonthName()}&nbsp;2021
+                      </u>
                     </h5>
                     <br />
                     <div className="preview-list">
@@ -352,23 +381,23 @@ export class Dashboard extends Component {
                                 <div className="d-flex d-md-block d-xl-flex justify-content-between">
                                   <h6 className="preview-subject">{s.name}</h6>
                                   <p className="text-success text-start font-weight-medium">
-                                    +$&nbsp;
+                                    $&nbsp;
                                     {separator(
                                       Math.round(s.amount) > s.target
-                                        ? s.target
+                                        ? s.amount
                                         : Math.round(s.amount)
                                     )}
                                   </p>
                                   {s.amount > s.target ? (
                                     <p className="text-success text-start font-weight-medium">
-                                      +$&nbsp;
+                                      $&nbsp;
                                       {separator(
                                         Math.round(s.amount) - s.target
                                       )}
                                     </p>
                                   ) : (
                                     <p className="text-danger text-start font-weight-medium">
-                                      -$&nbsp;
+                                      $&nbsp;
                                       {separator(
                                         s.target - Math.round(s.amount)
                                       )}
