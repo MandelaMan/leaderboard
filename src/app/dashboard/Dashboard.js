@@ -11,10 +11,6 @@ const mapData = {
   TZ: 65.56,
 };
 
-// function percentage(percent, total) {
-//   return ((percent / 100) * total).toFixed(2);
-// }
-
 function separator(numb) {
   var str = numb.toString().split(".");
   str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
