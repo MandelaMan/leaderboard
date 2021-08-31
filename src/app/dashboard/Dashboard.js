@@ -330,10 +330,22 @@ export class Dashboard extends Component {
                         <h6>
                           <u>Days to target expiry</u>
                         </h6>
-                        <h1 className="text-success ml-2 mb-0 font-weight-medium">
-                          <Counter start={0} end={remainingDays()} delay={10} />
-                          &nbsp;Day{remainingDays() > 1 && "s"}
-                        </h1>
+                        {remainingDays() > 5 && (
+                          <h1 className="text-success ml-2 mb-0 font-weight-medium">
+                            <Counter
+                              start={0}
+                              end={remainingDays()}
+                              delay={10}
+                            />
+                            &nbsp;Day{remainingDays() > 1 && "s"}
+                          </h1>
+                        )}
+
+                        {remainingDays() < 1 && (
+                          <h1 className="text-danger ml-2 mb-0 font-weight-medium">
+                            Final day
+                          </h1>
+                        )}
                       </div>
                     </div>
                     <div className="row mt-5 mb-7">
@@ -355,7 +367,8 @@ export class Dashboard extends Component {
                     <h5>
                       <u>
                         Business Development Individual Targets for&nbsp;
-                        {this.getMonthName()}&nbsp;2021
+                        {this.getMonthName()}
+                        &nbsp;2021
                       </u>
                     </h5>
                     <br />
