@@ -183,7 +183,7 @@ export class Dashboard extends Component {
 
     setInterval(() => {
       this.getData();
-    }, 3600000);
+    }, 600);
 
     // // after 5 seconds stop
     // setTimeout(() => {
